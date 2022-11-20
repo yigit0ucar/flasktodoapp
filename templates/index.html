@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yiğit Uçar Yapılacaklar Listesi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+</head>
+<body> 
+    
+    <div style="margin-top: 100px;" class="container">
+        <h3>Yapılacaklar Listesi</h3>
+        <hr>
+
+        <form action="/add" method="POST">
+            <div class="mb-3">
+                <label for="formGroupExampleInput" class="form-label">Todo Başlık</label>
+                <input type="text" name="title" class="form-control" id="formGroupExampleInput" placeholder="Todo Başlık Giriniz...">
+                <br>
+                <button type="submit" class="btn btn-outline-success">Ekle</button>
+            </div>
+              
+        </form>
+        <hr>
+        <h5>Yapılacak İşler </h5>
+        <hr>
+
+        {% if todos == [] %}
+            <div class="alert alert-warning" role="alert">
+                Herhangi Bir Todonuz Bulunmuyor...
+            </div>
+        {% else %}
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">Todo Başlık</th>
+                <th scope="col">Todo Durum</th>
+                <th scope="col">Durum Güncelle </th>
+                <th scope="col">Todo Sil</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for todo in todos %}
+                    <tr>
+                        <th scope="row">{{todo.id}}</th>
+                        <td>{{todo.title}}</td>
+                        {% if todo.complate == False %}
+                            <td>Tamamlanmadı</td>
+                        {% else %}
+                            <td>Tamamlandı</td>
+                        {% endif %}
+                        <td><a class="btn btn-success" href="/complate/{{todo.id}}">Tamamla</a></td>
+                        <td><a class="btn btn-danger" href="/delete/{{todo.id}}">Sil</a></td>
+                     </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+        {% endif %}
+        
+        
+    </div>
+
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
